@@ -65,7 +65,11 @@
 				
 						<textarea name="message" placeholder="" > </textarea>
 						</div>
-						<!-- <div class="g-recaptcha" data-sitekey="6LcrdpIUAAAAAD2Gh5NUbFkHgGYQ3ju5KoIGLvZp"></div> -->
+						<?php 
+         echo $this->session->flashdata('cap'); 
+        
+      ?> 
+						<div class="g-recaptcha" data-sitekey="6LebgZIUAAAAABvoTP3fZygJW1kDHKIgX7t7rnIw"></div>
 						<input type="submit" value="Submit">
 				</form>
 				

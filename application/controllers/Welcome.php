@@ -58,19 +58,20 @@ class Welcome extends CI_Controller {
 	}
 
 	function validate_captcha() {
-		$secret = "6LcrdpIUAAAAAPCgfPpUIDEmO6WQp4KgPavYtle_";
-        $captcha = $this->input->post('g-recaptcha-response');
-         $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
-        if ($response . 'success' == false) {
-            return FALSE;
-        } else {
-            return TRUE;
-        }
+	
 	}
 	public function send_mail()
     {
 		
-		$name = $this->input->post('name'); 
+		$secret = "6LebgZIUAAAAAHyd67ntBCdZ4JS3gSWQlqWijsb_";
+        $captcha = $this->input->post('g-recaptcha-response');
+         $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        if ($response . 'success' == false) {
+			$this->session->set_flashdata("cap","Please check the the captcha form");
+			redirect(base_url().'contact-us','refresh'); 
+			
+        } else {
+			$name = $this->input->post('name'); 
 		$email = $this->input->post('email'); 
 		$subject = $this->input->post('subject'); 
 		$message = $this->input->post('message'); 
@@ -121,6 +122,9 @@ class Welcome extends CI_Controller {
 		$this->load->helper('url');
 		// redirect(base_url().'contact-us');
 		redirect(base_url().'contact-us','refresh');
+        }
+
+		
 	
 	
 		
